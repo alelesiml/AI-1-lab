@@ -46,17 +46,16 @@ print(df_final.head())
 
 print(f"Итоговое количество столбцов: {len(df_final.columns)}")
 
-# Разделение на обучающую и тестовую выборки
 train_df, test_df = train_test_split(df_final, test_size=0.3, random_state=42)
 
 print(f"\nРазделение данных:")
 print(f"Обучающая выборка: {train_df.shape}")
 print(f"Тестовая выборка: {test_df.shape}")
 
-# Сохранение результатов
 df_final.to_csv('titanic_processed.csv', index=False)
 train_df.to_csv('titanic_train.csv', index=False)
 test_df.to_csv('titanic_test.csv', index=False)
 
 print("\nОбработка завершена! Файлы сохранены.")
+
 
