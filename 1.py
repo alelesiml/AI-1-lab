@@ -43,6 +43,11 @@ print(df_final.head(10))
 print(f"Столбцов ДО преобразования: {len(df_filled.columns)}")
 print(f"Итоговое количество столбцов: {len(df_final.columns)}")
 
+train_df, test_df = train_test_split(df_final, test_size=0.3, random_state=42)
+
 df_final.to_csv('titanic_processed.csv', index=False)
+train_df.to_csv('titanic_train.csv', index=False)
+test_df.to_csv('titanic_test.csv', index=False)
 
 print("\nОбработка завершена! Файлы сохранены.")
+
