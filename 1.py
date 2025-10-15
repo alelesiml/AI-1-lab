@@ -34,28 +34,15 @@ if 'SubmissionCount' in df_filled.columns:
     df_filled['SubmissionCount_normalized'] = scaler_standard.fit_transform(df_filled[['SubmissionCount']])
     print("SubmissionCount нормализован")
 
-categorical_cols = df_filled.select_dtypes(include='object').columns
-if len(categorical_cols) > 0:
-    df_final = pd.get_dummies(df_filled, columns=categorical_cols, drop_first=True)
-    print(f"One-Hot Encoding применен")
-    print(f"Столбцов ДО преобразования: {len(df_filled.columns)}")
-    print(f"Столбцов ПОСЛЕ преобразования: {len(df_final.columns)}")
+if 'TeamName' in df_filled.columns:
+    df_final = pd.get_dummies(df_filled, columns=['TeamName'], drop_first=True)
+    print("One-Hot Encoding применен для TeamName")
 else:
     df_final = df_filled
-print(df_final.head())
-
+print(df_final.head(10))
+print(f"Столбцов ДО преобразования: {len(df_filled.columns)}")
 print(f"Итоговое количество столбцов: {len(df_final.columns)}")
 
-train_df, test_df = train_test_split(df_final, test_size=0.3, random_state=42)
-
-print(f"\nРазделение данных:")
-print(f"Обучающая выборка: {train_df.shape}")
-print(f"Тестовая выборка: {test_df.shape}")
-
 df_final.to_csv('titanic_processed.csv', index=False)
-train_df.to_csv('titanic_train.csv', index=False)
-test_df.to_csv('titanic_test.csv', index=False)
 
 print("\nОбработка завершена! Файлы сохранены.")
-
-
